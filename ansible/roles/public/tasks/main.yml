@@ -1,0 +1,13 @@
+---
+
+- name: elektropott
+  docker:
+    name: elektropott
+    image: nginx
+    pull: always
+    restart_policy: always
+    state: reloaded
+    ports:
+      - 20080:80
+    volumes:
+      - "/srv/docker/elektropott/html:/usr/share/nginx/html:ro"

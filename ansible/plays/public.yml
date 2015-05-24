@@ -1,0 +1,5 @@
+---
+
+- hosts: bandit
+  roles:
+    - ../roles/public

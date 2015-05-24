@@ -12,3 +12,8 @@ Setup
 * All services are docker containers.
 * All data volumes go to /srv/docker (this is the main backup folder)
 * The host system is fully configured with ansible, see [INSTALL](INSTALL.md)
+
+Ports
+-----
+
+* 20080: elektropott.de
