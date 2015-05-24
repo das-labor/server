@@ -12,3 +12,19 @@
     - unzip
     - git
     - vim
+    - curl
+    - wget
+  # Unfortunately not yet in Ubuntu 14.04
+  # - python-docker
+
+- name: download python-docker
+  tags: server_deps
+  become: yes
+  when: ansible_pkg_mgr == "apt"
+  get_url: dest=/root/ url=http://ftp.de.debian.org/debian/pool/main/p/python-docker/python-docker_0.5.3-1_all.deb
+
+- name: install python-docker
+  tags: server_deps
+  become: yes
+  when: ansible_pkg_mgr == "apt"
+  apt: deb=/root/python-docker_0.5.3-1_all.deb
