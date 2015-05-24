@@ -11,7 +11,7 @@ after doing so.
 Linked Images
 -------------
 
-Image Name | Server Name
----------- | ------------------------------------
-`blog`     | `www.das-labor.org`, `das-labor.org`
-`wiki`     | `wiki.das-labor.org`
+| Image Name | Server Name                          |
+| ---------- | ------------------------------------ |
+| `blog`     | `www.das-labor.org`, `das-labor.org` |
+| `wiki`     | `wiki.das-labor.org`                 |
