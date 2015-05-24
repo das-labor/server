@@ -1,8 +1,0 @@
-# The admin users on a labor server
-SERVER_ADMINS: [marcus, seu]
-
-# user data
-USER:
-    marcus: { ssh_key: 'ssh-dss AAAAB3NzaC1kc3MAAACBANkHGytQQYArEhr/bv5mZ+PLGdoDd7+ptNaWhcHerJVGCcWQ9eXv84M7TEPtUP4FKDJBPiKXwho6iQMJ+ceA9vpEJWZIzwAspj5dwMqP/mYuzqoO6nSJIaCXMhYt66e2PD9z6oRzxSvNuSNrtsB+r5b0LP9MwXZ+nhABmxgLqg7bAAAAFQDYRz66BHdXIhrfSpTgzaAfTqo31QAAAIAWMEvjITw4hjKHJvWtE7qstg1oOytUyiwDU1Kow1i67BFGiaNQA8nOZZ35ezf/Yf/xiW2L6/KzvhVWaLLo4Hr+QVJ4WYH4DoGJBNSyn4vobNF0pO8o4VELZ8TL/qCnWOy8pvi47w+rHmd/yr3lugXiw/wxnTVT9B+Tzcd9h820egAAAIBXarAHtK4mKdF0UfY5ieNqFGtMz0dY8s6lE7xkCy1cT5s57A4VI1eW5OzuR+4VYVchOKxDxq3qM1prP76lK1LEpKNl+OvRKnTMvAq1cPv1NBn64zoY4ULjZyboJmLVbfSN+DBPdwoZnBdAzCjBNLrTgsZWP6tShUq3hKXNZa8FXw== marcus@das-labor.org' }
-    seu: { ssh_key: 'XXX' }
-
