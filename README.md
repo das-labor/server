@@ -11,9 +11,13 @@ Setup
 
 * All services are docker containers.
 * All data volumes go to /srv/docker (this is the main backup folder)
-* The host system is fully configured with ansible, see [INSTALL](INSTALL.md)
+* The host system is fully configured with ansible, see [INSTALL](INSTALL.md) and [MAINTAIN](MAINTAIN.md)
 
-Ports
------
+
+Public Ports
+------------
+
+The role "public" is served by "bandit".  This table shows the
+allocated ports:
 
 * 20080: elektropott.de

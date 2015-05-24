@@ -16,3 +16,4 @@ Installation of a server
 
    ansible$ ansible-playbook plays/site.yml
    
+
