@@ -1,0 +1,16 @@
+---
+
+- name: add docker repository key
+  tags: server_docker
+  sudo: yes
+  apt_key: keyserver=hkp://keyserver.ubuntu.com:80 id=36A1D7869245C8950F966E92D8576A8BA88D21E9
+
+- name: add docker repository
+  tags: server_docker
+  sudo: yes
+  apt_repository: repo='deb https://get.docker.com/ubuntu docker main'
+
+- name: upgrade docker
+  tags: server_docker
+  sudo: yes
+  apt: update_cache=yes name=lxc-docker

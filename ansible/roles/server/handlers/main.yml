@@ -1,0 +1,9 @@
+---
+
+- name: restart docker
+  sudo: yes
+  service: name=docker state=restarted
+
+- name: restart sshd
+  sudo: yes
+  service: name=ssh state=restarted

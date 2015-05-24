@@ -1,0 +1,14 @@
+---
+
+- name: install server-related packages (apt)
+  tags: server_deps
+  sudo: yes
+  when: ansible_pkg_mgr == "apt"
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - tmux
+    - htop
+    - dstat
+    - unzip
+    - git
+    - vim

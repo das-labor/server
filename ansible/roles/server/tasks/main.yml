@@ -1,0 +1,7 @@
+---
+
+# This normally runs only once.
+- include: dependencies.yml
+- include: docker.yml
+- include: admins.yml
+- include: ssh.yml

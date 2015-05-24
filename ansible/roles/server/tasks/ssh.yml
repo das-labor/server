@@ -1,0 +1,8 @@
+---
+
+- name: disable dns resolving in sshd
+  tags: server_ssh
+  sudo: yes
+  lineinfile: state=present line='UseDNS no' dest=/etc/ssh/sshd_config
+  notify:
+    - restart sshd
