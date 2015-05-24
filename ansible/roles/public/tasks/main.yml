@@ -7,7 +7,31 @@
     pull: always
     restart_policy: always
     state: reloaded
-    ports:
-      - 20080:80
     volumes:
       - "/srv/docker/elektropott/html:/usr/share/nginx/html:ro"
+
+- name: blog
+  docker:
+    name: blog
+    image: nginx
+    pull: always
+    restart_policy: always
+    state: reloaded
+
+- name: wiki
+  docker:
+    name: wiki
+    image: nginx
+    pull: always
+    restart_policy: always
+    state: reloaded
+
+- name: lfe
+  docker:
+    name: lfe
+    image: labor/lfe
+    pull: always
+    restart_policy: always
+    state: reloaded
+    links: blog,wiki,elektropott
+    ports: 80:80,443:443

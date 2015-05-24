@@ -23,11 +23,10 @@ allocated ports:
 * 0.0.0.0:22: Reserved for SSH.
 * 0.0.0.0:25: Reserved for SMTP.
 * 0.0.0.0:53: Reserved for DNS.
-* 0.0.0.0:80: Reserved for HTTP (reverse proxy)
+* 0.0.0.0:80: lfe (HTTP)
 * 0.0.0.0:143: Reserved for IMAP.
-* 0.0.0.0:443: Reserved for HTTPS (reverse proxy)
+* 0.0.0.0:443: lfe (HTTPS)
 * 0.0.0.0:993: Reserved for IMAPS.
 * 0.0.0.0:5222: Reserved for XMPP-CLIENT.
 * 0.0.0.0:5269: Reserved for XMPP-SERVER.
 * 0.0.0.0:5280: Reserved for XMPP-BOSH.
-* localhost:20080: elektropott.de
