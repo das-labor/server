@@ -1,5 +1,5 @@
 # The admin users on a labor server
-SERVER_ADMINS: [marcus, seu]
+SERVER_ADMINS: [marcus, seu, blafoo]
 
 # user data
 USER:
