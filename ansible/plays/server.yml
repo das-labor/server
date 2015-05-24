@@ -1,0 +1,5 @@
+---
+
+- hosts: labor
+  roles:
+    - ../roles/server
