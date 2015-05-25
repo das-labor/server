@@ -1,0 +1,19 @@
+dn: ou=users,dc=das-labor,dc=org
+ou: users
+objectClass: organizationalUnit
+
+dn: ou=groups,dc=das-labor,dc=org
+ou: groups
+objectClass: organizationalUnit
+
+dn: cn=blogEditors,ou=groups,dc=das-labor,dc=org
+cn: blogEditors
+description: "Editor role of Wordpress"
+member: cn=admin,dc=das-labor,dc=org
+objectClass: groupOfNames
+
+dn: cn=blogAdmins,ou=groups,dc=das-labor,dc=org
+cn: blogAdmins
+description: "Administrator role of Wordpress"
+member: cn=admin,dc=das-labor,dc=org
+objectClass: groupOfNames
