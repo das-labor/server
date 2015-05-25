@@ -21,6 +21,18 @@
     env:
       MYSQL_ROOT_PASSWORD: "test"
 
+- name: ldap
+  docker:
+    name: ldap
+    image: labor/ldap
+    pull: always
+    restart_policy: always
+    state: reloaded
+    volumes:
+      - "/srv/docker/ldap:/var/lib/ldap"
+    env:
+      SLAPD_PASSWORD: "test"
+
 - name: wiki
   docker:
     name: wiki
@@ -32,6 +44,7 @@
       - "/srv/docker/wiki:/var/www-shared/html"
     links:
       - "wiki-mysql:mysql"
+      - "ldap:ldap"
 
 - name: blog mysql
   docker:
@@ -56,6 +69,7 @@
       - "/srv/docker/blog:/var/www/html"
     links:
       - "blog-mysql:mysql"
+      - "ldap:ldap"
 
 - name: rev proxy
   docker:
