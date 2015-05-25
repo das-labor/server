@@ -1,5 +1,4 @@
 ---
-
 - name: elektropott
   docker:
     name: elektropott
@@ -10,28 +9,64 @@
     volumes:
       - "/srv/docker/elektropott/html:/usr/share/nginx/html:ro"
 
-- name: blog
+- name: wiki mysql
   docker:
-    name: blog
-    image: nginx
+    name: wiki-mysql
+    image: mysql
     pull: always
     restart_policy: always
     state: reloaded
+    volumes:
+      - "/srv/docker/wiki-mysql:/var/lib/mysql"
+    env:
+      MYSQL_ROOT_PASSWORD: "test"
 
 - name: wiki
   docker:
     name: wiki
-    image: nginx
+    image: labor/wiki
     pull: always
     restart_policy: always
     state: reloaded
+    volumes:
+      - "/srv/docker/wiki:/var/www-shared/html"
+    links:
+      - "wiki-mysql:mysql"
 
-- name: lfe
+- name: blog mysql
+  docker:
+    name: blog-mysql
+    image: mysql
+    pull: always
+    restart_policy: always
+    state: reloaded
+    volumes:
+      - "/srv/docker/blog-mysql:/var/lib/mysql"
+    env:
+      MYSQL_ROOT_PASSWORD: "test2"
+
+- name: blog
+  docker:
+    name: blog
+    image: wordpress
+    pull: always
+    restart_policy: always
+    state: reloaded
+    volumes:
+      - "/srv/docker/blog:/var/www/html"
+    links:
+      - "blog-mysql:mysql"
+
+- name: rev proxy
   docker:
     name: lfe
     image: labor/lfe
     pull: always
     restart_policy: always
     state: reloaded
-    links: blog,wiki,elektropott
-    ports: 80:80,443:443
+    ports:
+      - "80:80"
+    links:
+      - "blog:blog"
+      - "wiki:wiki"
+      - "elektropott:elektropott"
