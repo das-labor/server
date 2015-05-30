@@ -61,7 +61,7 @@
 - name: blog
   docker:
     name: blog
-    image: wordpress
+    image: labor/blog
     pull: always
     restart_policy: always
     state: reloaded
