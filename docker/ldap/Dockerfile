@@ -14,15 +14,17 @@ RUN mv /etc/ldap /etc/ldap.dist && \
 
 EXPOSE 389
 
-VOLUME /var/lib/ldap
+COPY labor.schema /etc/ldap/schema/
+COPY core.schema /etc/ldap/schema/
 
-ENV SLAPD_DOMAIN das-labor.org
-ENV SLAPD_ORGANIZATION "LABOR e.V."
-ENV SLAPD_ADDITIONAL_SCHEMAS "labor"
+COPY bootstrap.ldif /etc/ldap/
 
-COPY labor.ldif /etc/ldap/schema/labor.ldif
-COPY entrypoint.sh /entrypoint.sh
+COPY slapd.conf /etc/ldap/
 
-ENTRYPOINT ["/entrypoint.sh"]
-
-CMD ["slapd", "-d", "32768", "-u", "openldap", "-g", "openldap"]
+CMD slapadd -c -n1 -l /etc/ldap/bootstrap.ldif -f /etc/ldap/slapd.conf; \
+		chown -R openldap:openldap /var/lib/ldap /etc/ldap; \
+		slapd \
+			-d acl,config,filter,stats,conns \
+			-u openldap \
+			-g openldap \
+			-f /etc/ldap/slapd.conf
