@@ -45,4 +45,5 @@ VOLUME ["/var/lib/ejabberd"]
 EXPOSE 4560 5222 5269 5280
 #CMD ["start"]
 ADD entrypoint.sh /
+ADD ejabberd.yml /etc/ejabberd/
 ENTRYPOINT ["/entrypoint.sh"]
