@@ -15,14 +15,14 @@ objectClass: groupOfNames
 member: cn=admin,dc=das-labor,dc=org
 member: cn=seu,dc=das-labor,dc=org
 
-dn: cn=,dc=das-labor,dc=org
+dn: cn=admins,dc=das-labor,dc=org
 cn: admins
 description: "Administrator role of Wordpress"
 objectClass: groupOfNames
 member: cn=admin,dc=das-labor,dc=org
 member: cn=seu,dc=das-labor,dc=org
 
-dn: cn=admins,dc=das-labor,dc=org
+dn: cn=bureaucrat,dc=das-labor,dc=org
 cn: bureaucrat
 description: "Bureaucrat role of Mediawiki"
 objectClass: groupOfNames
@@ -32,5 +32,11 @@ member: cn=seu,dc=das-labor,dc=org
 dn: cn=seu,dc=das-labor,dc=org
 cn: seu
 name: "Kai Michaelis"
+userPassword: {CRYPT}$5$rounds=8000$r/8ua5e.cqplT91v$vCruhMm23X0V0tfkCjRA2BbX5igrfTvyrTd9hVwbTW7
+objectClass: laborant
+
+dn: cn=test,dc=das-labor,dc=org
+cn: test
+name: "Testy McTest"
 userPassword: {CRYPT}$5$rounds=8000$r/8ua5e.cqplT91v$vCruhMm23X0V0tfkCjRA2BbX5igrfTvyrTd9hVwbTW7
 objectClass: laborant
