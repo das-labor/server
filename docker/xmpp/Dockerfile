@@ -3,7 +3,6 @@ FROM ubuntu:trusty
 MAINTAINER seu <seu@panopticon.re>
 
 RUN useradd -r -m -U -d /var/lib/ejabberd -s /usr/sbin/nologin ejabberd
-#RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales && \ #		locale-gen C.UTF-8 && \ #		/usr/sbin/update-locale LANG=C.UTF-8 #ENV LC_ALL C.UTF-8 #ENV LANG en_US.UTF-8 #ENV LANGUAGE en_US.UTF-8
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
 		DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends install \
@@ -28,22 +27,15 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     git clone https://github.com/processone/ejabberd.git --branch 15.04 --single-branch --depth=1 && \
     cd ejabberd && chmod +x autogen.sh && ./autogen.sh && \
     ./configure --enable-pgsql --disable-pam --enable-zlib && \
-		make && make install \
-    && mkdir /var/lib/ejabberd/ssl \
-    && mkdir /var/lib/ejabberd/conf \
-    && mkdir /var/lib/ejabberd/database \
-    && cd /var/lib/ejabberd \
-    && rm -rf /tmp/ejabberd \
-    && rm -rf /etc/ejabberd \
-    && ln -sf /var/lib/ejabberd/conf /etc/ejabberd \
-    && chown -R ejabberd:ejabberd /var/lib/ejabberd \
+		make && make install && \
+    chown -R ejabberd:ejabberd /var/lib/ejabberd /etc/ejabberd \
 		&& apt-get remove -y curl git-core build-essential automake libssl-dev libyaml-dev zlib1g-dev libexpat-dev erlang-dev && \
 		apt-get clean
-# Wrapper for setting config on disk from environment # allows setting things like XMPP domain at runtime #ADD ./run.sh /sbin/run # Add run scripts #ADD ./scripts $EJABBERD_HOME/scripts # Add config templates #ADD ./conf /opt/ejabberd/conf # Continue as user #USER ejabberd #WORKDIR /var/lib/ejabberd
 
-VOLUME ["/var/lib/ejabberd"]
-EXPOSE 4560 5222 5269 5280
-#CMD ["start"]
-ADD entrypoint.sh /
-ADD ejabberd.yml /etc/ejabberd/
-ENTRYPOINT ["/entrypoint.sh"]
+VOLUME /var/lib/ejabberd
+EXPOSE 5222 5269
+
+COPY ejabberd.yml /etc/ejabberd/
+
+CMD ejabberdctl start && \
+		tail -F /var/log/ejabberd/ejabberd.log
