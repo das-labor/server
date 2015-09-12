@@ -73,7 +73,7 @@
 
 - name: static websites
   docker:
-    name: lfe
+    name: static-web
     image: labor/static-web
     pull: always
     restart_policy: always
