@@ -1,7 +1,28 @@
 #!/bin/bash
 
-rm -f /etc/nginx/conf.d/static-web.conf
+# Default server handles Github hooks
+cat << "EOF" > /etc/nginx/conf.d/default.conf
+server {
+	listen 80 default_server;
+	server_name static.das-labor.org;
 
+	location /github {
+		expires 8d;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+		proxy_set_header X-NginX-Proxy true;
+		proxy_read_timeout 5m;
+		proxy_connect_timeout 5m;
+
+		proxy_cache_key sfs$request_uri$scheme;
+		proxy_pass http://127.0.0.1:3000;
+		proxy_redirect off;
+	}
+}
+EOF
+
+# Iterate thru all STATIC_SITE_* env vars
 for VAR in `env | egrep -o "^STATIC_SITE_.+"`
 do
 	LINE=`echo $VAR | cut -d = -f 2`
@@ -17,20 +38,37 @@ do
 		echo " without jekyll"
 	fi
 
-
 	rm -rf /var/www/$HOST
-	git clone $REPO /var/www/$HOST
+	git clone --depth 1 $REPO /var/www/$HOST
 
 	if [ $JEKYLL == true ]
 	then
 		cd /var/www/$HOST
 		jekyll build
-		m4 -Dhostname=$HOST -Dsiteroot=/var/www/$HOST/_site /nginx.m4 >> /etc/nginx/conf.d/static-web.conf
+		ROOT="/var/www/$HOST/_site"
 	else
-		m4 -Dhostname=$HOST -Dsiteroot=/var/www/$HOST /nginx.m4 >> /etc/nginx/conf.d/static-web.conf
+		ROOT="/var/www/$HOST"
 	fi
+
+	cat << EOF >> /etc/nginx/conf.d/default.conf
+server {
+	listen 80;
+	server_name $HOST;
+	root $ROOT;
+
+	location / {
+		index index.htm index.html;
+	}
+}
+EOF
+
 done
 
 chown -R www-data:www-data /var/www
+go build -o /github_hook /github_hook.go
 
-tail -F /var/log/nginx/error.log
+/github_hook &
+sleep 2
+
+
+nginx -g "daemon off;"
