@@ -84,3 +84,15 @@
       - "blog:blog"
       - "wiki:wiki"
       - "elektropott:elektropott"
+
+- name: xmpp
+  docker:
+    name: xmpp
+    image: labor/xmpp
+    pull: always
+    restart_policy: always
+    state: reloaded
+    volumes:
+      - "/srv/docker/xmpp:/var/lib/ejabberd"
+    links:
+      - "ldap:ldap"
