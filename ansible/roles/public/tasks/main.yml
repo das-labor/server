@@ -71,6 +71,14 @@
       - "blog-mysql:mysql"
       - "ldap:ldap"
 
+- name: static websites
+  docker:
+    name: lfe
+    image: labor/static-web
+    pull: always
+    restart_policy: always
+    state: reloaded
+
 - name: rev proxy
   docker:
     name: lfe
@@ -84,6 +92,7 @@
       - "blog:blog"
       - "wiki:wiki"
       - "elektropott:elektropott"
+      - "static-web:static-web"
 
 - name: xmpp
   docker:
