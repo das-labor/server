@@ -1,14 +1,4 @@
 ---
-- name: elektropott
-  docker:
-    name: elektropott
-    image: nginx
-    pull: always
-    restart_policy: always
-    state: reloaded
-    volumes:
-      - "/srv/docker/elektropott/html:/usr/share/nginx/html:ro"
-
 - name: wiki mysql
   docker:
     name: wiki-mysql
