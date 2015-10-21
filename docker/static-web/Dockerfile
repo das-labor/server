@@ -16,6 +16,9 @@ ENV STATIC_SITE_ELEKTROPOTT="elektropott.de,https://github.com/das-labor/elektro
 ENV STATIC_SITE_LT15="labortage.das-labor.org,https://github.com/das-labor/lt15.git,false"
 ENV STATIC_SITE_REPAIRCAFE="repaircafe-bochum.de,https://github.com/das-labor/repaircafe-bochum.de.git,true"
 
+# REDIRECT_SITE_(Name) = "(From),(To)"
+ENV REDIRECT_SITE_WWW_REPAIRCAFE="www.repaircafe-bochum.de,repaircafe-bochum.de"
+
 COPY entrypoint.sh /
 COPY github_hook.go /
 CMD /entrypoint.sh

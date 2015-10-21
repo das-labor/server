@@ -64,6 +64,24 @@ EOF
 
 done
 
+# Iterate thru all REDIRECT_SITE_* env vars
+for VAR in `env | egrep -o "^REDIRECT_SITE_.+"`
+do
+	LINE=`echo $VAR | cut -d = -f 2`
+	FROM=`echo $LINE | cut -d , -f 1`
+	TO=`echo $LINE | cut -d , -f 2`
+
+	echo -n "Set up redirect from $FROM to $TO"
+
+	cat << EOF >> /etc/nginx/conf.d/default.conf
+server {
+	server_name $FROM;
+	return 301 \$scheme://$TO\$request_uri;
+}
+EOF
+
+done
+
 chown -R www-data:www-data /var/www
 go build -o /github_hook /github_hook.go
 
