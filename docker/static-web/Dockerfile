@@ -12,7 +12,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
 		apt-get clean
 
 # STATIC_SITE_(Name) = "(Hostname),(Git Repo),(Jekyll?)"
-ENV STATIC_SITE_ELEKTROPOTT="elektropott.de,https://github.com/das-labor/elektropott.de.git,false"
 ENV STATIC_SITE_LT15="labortage.das-labor.org,https://github.com/das-labor/lt15.git,false"
 ENV STATIC_SITE_REPAIRCAFE="repaircafe-bochum.de,https://github.com/das-labor/repaircafe-bochum.de.git,true"
 
