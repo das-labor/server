@@ -81,7 +81,6 @@
     links:
       - "blog:blog"
       - "wiki:wiki"
-      - "elektropott:elektropott"
       - "static-web:static-web"
 
 - name: xmpp
