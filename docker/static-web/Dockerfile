@@ -7,9 +7,12 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
         git-core \
 				golang-go \
 				ruby-i18n \
-				jekyll && \
+				build-essential \
+				ruby-dev && \
     rm -rf /var/lib/apt/lists/* && \
 		apt-get clean
+
+RUN gem install jekyll
 
 # STATIC_SITE_(Name) = "(Hostname),(Git Repo),(Jekyll?)"
 ENV STATIC_SITE_LT15="labortage.das-labor.org,https://github.com/das-labor/lt15.git,false"
