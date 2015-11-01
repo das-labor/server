@@ -1,0 +1,5 @@
+server_host = ldap
+search_base = dc=das-labor,dc=org
+query_filter = (&(cn=%u)(objectClass=laborant))
+result_attribute = cn
+debuglevel = 1
