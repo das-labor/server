@@ -27,6 +27,17 @@ allocated ports:
 * 0.0.0.0:143: Reserved for IMAP.
 * 0.0.0.0:443: lfe (HTTPS)
 * 0.0.0.0:993: Reserved for IMAPS.
+* 0.0.0.0:10000/udp: meet SRTP (Jitsi)
+* 0.0.0.0:10001/udp: meet SRTP (Jitsi)
+* 0.0.0.0:10002/udp: meet SRTP (Jitsi)
+* 0.0.0.0:10003/udp: meet SRTP (Jitsi)
+* 0.0.0.0:10004/udp: meet SRTP (Jitsi)
+* 0.0.0.0:10005/udp: meet SRTP (Jitsi)
+* 0.0.0.0:10006/udp: meet SRTP (Jitsi)
+* 0.0.0.0:10007/udp: meet SRTP (Jitsi)
+* 0.0.0.0:10008/udp: meet SRTP (Jitsi)
+* 0.0.0.0:10009/udp: meet SRTP (Jitsi)
+* 0.0.0.0:10010/udp: meet SRTP (Jitsi)
 * 0.0.0.0:5222: Reserved for XMPP-CLIENT.
 * 0.0.0.0:5269: Reserved for XMPP-SERVER.
 * 0.0.0.0:5280: Reserved for XMPP-BOSH.
