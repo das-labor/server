@@ -27,6 +27,7 @@ allocated ports:
 * 0.0.0.0:143: Reserved for IMAP.
 * 0.0.0.0:443: lfe (HTTPS)
 * 0.0.0.0:993: Reserved for IMAPS.
+* 0.0.0.0:8080: meet (Jitsi)
 * 0.0.0.0:5222: Reserved for XMPP-CLIENT.
 * 0.0.0.0:5269: Reserved for XMPP-SERVER.
 * 0.0.0.0:5280: Reserved for XMPP-BOSH.
