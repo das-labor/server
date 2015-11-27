@@ -1,0 +1,6 @@
+objectclass ( 31724.1.1
+ NAME 'laborant'
+ DESC 'Memeber of LABOR e.V.'
+ SUP top
+ MUST ( userPassword $ cn )
+ MAY name )

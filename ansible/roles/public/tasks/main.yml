@@ -1,14 +1,4 @@
 ---
-- name: elektropott
-  docker:
-    name: elektropott
-    image: nginx
-    pull: always
-    restart_policy: always
-    state: reloaded
-    volumes:
-      - "/srv/docker/elektropott/html:/usr/share/nginx/html:ro"
-
 - name: wiki mysql
   docker:
     name: wiki-mysql
@@ -21,6 +11,18 @@
     env:
       MYSQL_ROOT_PASSWORD: "test"
 
+- name: ldap
+  docker:
+    name: ldap
+    image: labor/ldap
+    pull: always
+    restart_policy: always
+    state: reloaded
+    volumes:
+      - "/srv/docker/ldap:/var/lib/ldap"
+    env:
+      SLAPD_PASSWORD: "test"
+
 - name: wiki
   docker:
     name: wiki
@@ -32,6 +34,7 @@
       - "/srv/docker/wiki:/var/www-shared/html"
     links:
       - "wiki-mysql:mysql"
+      - "ldap:ldap"
 
 - name: blog mysql
   docker:
@@ -48,7 +51,7 @@
 - name: blog
   docker:
     name: blog
-    image: wordpress
+    image: labor/blog
     pull: always
     restart_policy: always
     state: reloaded
@@ -56,6 +59,15 @@
       - "/srv/docker/blog:/var/www/html"
     links:
       - "blog-mysql:mysql"
+      - "ldap:ldap"
+
+- name: static websites
+  docker:
+    name: static-web
+    image: labor/static-web
+    pull: always
+    restart_policy: always
+    state: reloaded
 
 - name: rev proxy
   docker:
@@ -69,4 +81,38 @@
     links:
       - "blog:blog"
       - "wiki:wiki"
-      - "elektropott:elektropott"
+      - "static-web:static-web"
+
+- name: xmpp
+  docker:
+    name: xmpp
+    image: labor/xmpp
+    pull: always
+    restart_policy: always
+    state: reloaded
+    volumes:
+      - "/srv/docker/xmpp:/var/lib/ejabberd"
+    links:
+      - "ldap:ldap"
+
+- name: meet
+  docker:
+    name: meet
+    image: robertoandrade/jitsi-meet
+    pull: always
+    restart_policy: always
+    state: reloaded
+    links:
+      - "lfe:lfe"
+    ports:
+      - "10000:10000/udp"
+      - "10001:10001/udp"
+      - "10002:10002/udp"
+      - "10003:10003/udp"
+      - "10004:10004/udp"
+      - "10005:10005/udp"
+      - "10006:10006/udp"
+      - "10007:10007/udp"
+      - "10008:10008/udp"
+      - "10009:10009/udp"
+      - "10010:10010/udp"
