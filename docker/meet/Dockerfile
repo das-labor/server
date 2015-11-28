@@ -10,7 +10,7 @@ ENV SIP_CONF_FILE=sip-communicator.properties
 
 # Prerequisites
 RUN apt-get update && \
-	apt-get install -y wget dnsutils prosody && \
+	apt-get install -y wget dnsutils prosody python-software-properties && \
 	rm /etc/prosody/conf.*/localhost.cfg.lua
 
 RUN add-apt-repository 'deb http://download.jitsi.org/nightly/deb unstable/' && \
