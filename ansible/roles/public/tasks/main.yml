@@ -1,4 +1,20 @@
 ---
+- name: bind
+  docker:
+    docker_api_version: 1.19
+    name: bind
+    image: sameersbn/bind
+    pull: always
+    restart_policy: always
+    state: reloaded
+    ports:
+      - "53:53"
+    volumes:
+      - "/srv/docker/bind:/data"
+    env:
+      WEBMIN_ENABLED: "false"
+
+
 - name: wiki mysql
   docker:
     name: wiki-mysql
