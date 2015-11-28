@@ -16,7 +16,8 @@ RUN apt-get update && \
 		apt-get install -y libldap-dev git && \
 		rm -rf /var/lib/apt/lists/* && \
 		ln -fs /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/ && \
-		docker-php-ext-install ldap
+		docker-php-ext-install ldap && \
+		docker-php-ext-install mbstring
 
 VOLUME /var/www/html
 
