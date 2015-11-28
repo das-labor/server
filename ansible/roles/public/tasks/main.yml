@@ -47,7 +47,7 @@
     restart_policy: always
     state: reloaded
     volumes:
-      - "/srv/docker/wiki:/var/www-shared/html"
+      - "/srv/docker/wiki:/var/www/html"
     links:
       - "wiki-mysql:mysql"
       - "ldap:ldap"
