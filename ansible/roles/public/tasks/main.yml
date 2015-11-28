@@ -114,7 +114,7 @@
 - name: meet
   docker:
     name: meet
-    image: robertoandrade/jitsi-meet
+    image: labor/meet
     pull: always
     restart_policy: always
     state: reloaded
