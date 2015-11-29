@@ -8,6 +8,8 @@ server: Basic configuration for new servers, mostly installs admin accounts and 
 
 public: Public facing services like email, jabber, websites.
 
+maintenance: Routine tasks. Reissues the self-signed TLS certificate.
+
 Update
 ------
 

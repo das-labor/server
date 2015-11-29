@@ -85,6 +85,26 @@
     restart_policy: always
     state: reloaded
 
+- name: meet
+  docker:
+    name: meet
+    image: labor/meet
+    pull: always
+    restart_policy: always
+    state: reloaded
+    ports:
+      - "10000:10000/udp"
+      - "10001:10001/udp"
+      - "10002:10002/udp"
+      - "10003:10003/udp"
+      - "10004:10004/udp"
+      - "10005:10005/udp"
+      - "10006:10006/udp"
+      - "10007:10007/udp"
+      - "10008:10008/udp"
+      - "10009:10009/udp"
+      - "10010:10010/udp"
+
 - name: rev proxy
   docker:
     name: lfe
@@ -99,6 +119,7 @@
       - "wiki:wiki"
       - "static-web:static-web"
       - "meet:meet"
+    volumes_from: safe
 
 - name: xmpp
   docker:
@@ -112,24 +133,10 @@
     links:
       - "ldap:ldap"
 
-- name: meet
+- name: safe
   docker:
-    name: meet
-    image: labor/meet
-    pull: always
-    restart_policy: always
-    state: reloaded
-    links:
-      - "lfe:lfe"
-    ports:
-      - "10000:10000/udp"
-      - "10001:10001/udp"
-      - "10002:10002/udp"
-      - "10003:10003/udp"
-      - "10004:10004/udp"
-      - "10005:10005/udp"
-      - "10006:10006/udp"
-      - "10007:10007/udp"
-      - "10008:10008/udp"
-      - "10009:10009/udp"
-      - "10010:10010/udp"
+    image: busybox
+    name: safe
+    volumes:
+      - "/srv/docker/safe:/safe"
+    command: "/bin/sh"
