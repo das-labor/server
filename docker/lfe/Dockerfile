@@ -5,4 +5,4 @@ FROM nginx
 MAINTAINER seu <seu@panopticon.re>
 
 COPY revproxy.conf /etc/nginx/conf.d/revproxy.conf
-EXPOSE 80
+EXPOSE 80 443
