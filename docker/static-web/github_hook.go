@@ -47,12 +47,12 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 			} else {
 				for _, st := range sites {
 					if st.Repo == *repo_url {
-						git_cmd := exec.Command("/bin/bash", "-c", "git pull origin master")
+						git_cmd := exec.Command("/bin/bash", "-c", "git fetch origin master && git reset --hard FETCH_HEAD && git clean -df")
 						git_cmd.Dir = st.Path
 
 						out, err := git_cmd.Output()
 						if err != nil {
-							fmt.Printf("Failed to run git pull in %q: %s\n", git_cmd.Dir, err.Error())
+							fmt.Printf("Failed to run git in %q: %s\n", git_cmd.Dir, err.Error())
 							http.Error(w, "Failed to run git pull: "+err.Error(), 500)
 						} else {
 							if st.UsesJekyll {
