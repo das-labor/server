@@ -12,7 +12,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
 		apt-get clean
 
-RUN gem install jekyll
+RUN gem install jekyll jekyll-paginate
 
 # STATIC_SITE_(Name) = "(Hostname),(Git Repo),(Jekyll?)"
 ENV STATIC_SITE_LT15="labortage.das-labor.org,https://github.com/das-labor/lt15.git,false"
