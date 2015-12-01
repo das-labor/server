@@ -1,7 +1,6 @@
 ---
 
 - name: install server-related packages (apt)
-  tags: server_deps
   become: yes
   when: ansible_pkg_mgr == "apt"
   apt: pkg={{ item }} state=installed
@@ -18,13 +17,11 @@
   # - python-docker
 
 - name: download python-docker
-  tags: server_deps
   become: yes
   when: ansible_pkg_mgr == "apt"
   get_url: dest=/root/ url=http://ftp.de.debian.org/debian/pool/main/p/python-docker/python-docker_1.5.0-1_all.deb
 
 - name: install python-docker
-  tags: server_deps
   become: yes
   when: ansible_pkg_mgr == "apt"
   apt: deb=/root/python-docker_1.5.0-1_all.deb

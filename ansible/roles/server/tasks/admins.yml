@@ -1,7 +1,6 @@
 ---
 
 #- name: special case Suse systems
-#  tags: server_admins
 #  set_fact: server_user_group=users
 #  when: (server_user_group is not defined) and (ansible_os_family == 'suse')
 
@@ -13,7 +12,6 @@
     groups=wheel,docker
     append=yes
   with_items: SERVER_ADMINS
-  tags: server_admins
 
 # TODO: hostkey needs to be fixed
 - name: add svn server to gobal known_hosts
@@ -22,7 +20,6 @@
     name='foo.com.invalid'
     key="{{ lookup('file', 'pubkeys/foo.com.invalid') }}"
     state=present
-  tags: SERVER_admins
 
 #  lineinfile: >
 #    line="|1|T79zJdJg0e79Kcat5bFoJ4suBEI=|msDmUYG0KUZsJVaJ9jbboQsjkHA= ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAoISLqXlxHRH7Wk1zFq4Y3oI/Aje40cUFhZ8Z7nYNrSj18lZjIyIeo/X8OR9CkTKQL/HILwFq9S+QSr1VjK6e8xTPyXzwYujwGscrjGHuCVNHnYo9u3PiaZbQ5Rew2JNgk6nt2ugsrT5QMUNWvAQHt+eBjfJ3wMl9aDfztQ9urrRtB1MKvdxsDC8/KFqn6WLfp/u4FVEDx3tGYCLCG1+Y0sY4/xsf2UbVtiX1NQe9WbKPemtWK9OFZ8i5wv8Zn23/1VO7TyoPl6tCf18pnXmApVVruIWHd0qJ2jlwlrQyZ3oRFjJfv0RnnaLnwrrvOMlH/jMz1Q8kRyowVh8mNiR+hQ=="
@@ -38,7 +35,6 @@
     key="{{ USER[item].ssh_key }}"
     state=present
   with_items: SERVER_ADMINS
-  tags: server_admins
 
 - name: no password for sudo needed
   lineinfile: >
@@ -47,4 +43,3 @@
     regexp='^%wheel ALL\='
     line='%wheel ALL=(ALL:ALL) NOPASSWD:ALL'
     validate='visudo -cf %s'
-  tags: server_admins
