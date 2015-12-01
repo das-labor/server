@@ -1,5 +1,10 @@
 ---
 
 - hosts: labor
+  gather_facts: True
+  become: yes
+  become_method: sudo
+  become_user: root
+
   roles:
     - server
