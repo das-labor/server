@@ -5,16 +5,15 @@
   set_fact: server_user_group=users
   when: (server_user_group is not defined) and (ansible_os_family == 'suse')
 
-- name: add server admins
-  tags: server_admins
+- name: add server admins and add them to admin group
   become: yes
-  user: name={{ item }} shell="/bin/bash"
+  user: >
+    name={{ item }}
+    shell="/bin/bash"
+    groups=wheel
+    append=yes
   with_items: SERVER_ADMINS
-
-- name: add server admins group
   tags: server_admins
-  become: yes
-  group: name=wheel
 
 - name: create ssh directory
   tags: server_admins
