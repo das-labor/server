@@ -2,4 +2,4 @@
 
 - hosts: labor
   roles:
-    - ../roles/server
+    - server
