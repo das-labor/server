@@ -1,45 +1,50 @@
 ---
 
-- name: special case Suse systems
-  tags: server_admins
-  set_fact: server_user_group=users
-  when: (server_user_group is not defined) and (ansible_os_family == 'suse')
+#- name: special case Suse systems
+#  tags: server_admins
+#  set_fact: server_user_group=users
+#  when: (server_user_group is not defined) and (ansible_os_family == 'suse')
 
-- name: add server admins and add them to admin group
+- name: add server admins and add them to admin groups
   become: yes
   user: >
     name={{ item }}
     shell="/bin/bash"
-    groups=wheel
+    groups=wheel,docker
     append=yes
   with_items: SERVER_ADMINS
   tags: server_admins
 
-- name: create ssh directory
-  tags: server_admins
-  become: yes
-  file: dest=/home/{{ item }}/.ssh state=directory mode=0700 owner={{ item }} group={{ server_user_group | default(item) }}
-  with_items: SERVER_ADMINS
-
-- name: add svn server to known_hosts (line 1)
+# TODO: hostkey needs to be fixed
+- name: add svn server to gobal known_hosts
+  known_hosts: >
+    path='/etc/ssh/ssh_known_hosts'
+    name='foo.com.invalid'
+    key="{{ lookup('file', 'pubkeys/foo.com.invalid') }}"
+    state=present
   tags: SERVER_admins
-  become: yes
-  lineinfile: line="|1|T79zJdJg0e79Kcat5bFoJ4suBEI=|msDmUYG0KUZsJVaJ9jbboQsjkHA= ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAoISLqXlxHRH7Wk1zFq4Y3oI/Aje40cUFhZ8Z7nYNrSj18lZjIyIeo/X8OR9CkTKQL/HILwFq9S+QSr1VjK6e8xTPyXzwYujwGscrjGHuCVNHnYo9u3PiaZbQ5Rew2JNgk6nt2ugsrT5QMUNWvAQHt+eBjfJ3wMl9aDfztQ9urrRtB1MKvdxsDC8/KFqn6WLfp/u4FVEDx3tGYCLCG1+Y0sY4/xsf2UbVtiX1NQe9WbKPemtWK9OFZ8i5wv8Zn23/1VO7TyoPl6tCf18pnXmApVVruIWHd0qJ2jlwlrQyZ3oRFjJfv0RnnaLnwrrvOMlH/jMz1Q8kRyowVh8mNiR+hQ==" dest=/home/{{ item }}/.ssh/known_hosts create=yes mode=0600 owner={{ item }} group={{ SERVER_user_group | default(item) }}
-  with_items: SERVER_ADMINS
+
+#  lineinfile: >
+#    line="|1|T79zJdJg0e79Kcat5bFoJ4suBEI=|msDmUYG0KUZsJVaJ9jbboQsjkHA= ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAoISLqXlxHRH7Wk1zFq4Y3oI/Aje40cUFhZ8Z7nYNrSj18lZjIyIeo/X8OR9CkTKQL/HILwFq9S+QSr1VjK6e8xTPyXzwYujwGscrjGHuCVNHnYo9u3PiaZbQ5Rew2JNgk6nt2ugsrT5QMUNWvAQHt+eBjfJ3wMl9aDfztQ9urrRtB1MKvdxsDC8/KFqn6WLfp/u4FVEDx3tGYCLCG1+Y0sY4/xsf2UbVtiX1NQe9WbKPemtWK9OFZ8i5wv8Zn23/1VO7TyoPl6tCf18pnXmApVVruIWHd0qJ2jlwlrQyZ3oRFjJfv0RnnaLnwrrvOMlH/jMz1Q8kRyowVh8mNiR+hQ=="
+#    dest=/home/{{ item }}/.ssh/known_hosts
+#    create=yes
+#    mode=0600
+#    owner={{ item }}
+#    group={{ SERVER_user_group | default(item) }}
 
 - name: add ssh key to authorized_keys
-  tags: server_admins
-  become: yes
-  lineinfile: line='{{ USER[item].ssh_key }}' dest=/home/{{ item }}/.ssh/authorized_keys create=yes mode=0600 owner={{ item }} group={{ server_user_group | default(item) }}
+  authorized_key: >
+    user="{{ item }}"
+    key="{{ USER[item].ssh_key }}"
+    state=present
   with_items: SERVER_ADMINS
-
-- name: add server admins to admin groups
   tags: server_admins
-  become: yes
-  user: name={{ item }} groups=wheel,docker append=yes
-  with_items: SERVER_ADMINS
 
 - name: no password for sudo needed
+  lineinfile: >
+    dest=/etc/sudoers
+    state=present
+    regexp='^%wheel ALL\='
+    line='%wheel ALL=(ALL:ALL) NOPASSWD:ALL'
+    validate='visudo -cf %s'
   tags: server_admins
-  become: yes
-  lineinfile: dest=/etc/sudoers state=present line='%wheel ALL=(ALL:ALL) NOPASSWD:ALL' validate='visudo -cf %s'
