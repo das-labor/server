@@ -1,7 +1,13 @@
 ---
 
+## SSHD Config
+
 - name: disable dns resolving in sshd
   become: yes
-  lineinfile: state=present line='UseDNS no' dest=/etc/ssh/sshd_config
+  lineinfile: >
+    line='UseDNS no'
+    dest=/etc/ssh/sshd_config
+    regexp="^#? *UseDNS"
+    state=present
   notify:
     - restart sshd
