@@ -1,0 +1,13 @@
+---
+# defaults
+
+server_packages:
+    - tmux
+    - htop
+    - dstat
+    - unzip
+    - git
+    - vim
+    - curl
+    - wget
+#    - python-docker  # Unfortunately not yet in Ubuntu 14.04
