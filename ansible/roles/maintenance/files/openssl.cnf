@@ -66,10 +66,14 @@ countryName_default			= DE
 basicConstraints			= CA:TRUE
 subjectKeyIdentifier			= hash
 authorityKeyIdentifier			= keyid:always,issuer:always
+subjectAltName = @alt_names
 
 [ v3_req ]
 basicConstraints			= CA:FALSE
 subjectKeyIdentifier			= hash
+subjectAltName = @alt_names
 
-[SAN]
-subjectAltName=DNS:mail.das-labor.org,DNS:wiki.das-labor.org,DNS:blog.das-labor.org,DNS:repaircafe-bochum.de,DNS:www.repaircafe-bochum.de
+[alt_names]
+DNS.1 = *.das-labor.org
+DNS.2 = repaircafe-bochum.de
+DNS.3 = www.repaircafe-bochum.de
