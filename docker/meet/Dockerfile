@@ -13,3 +13,5 @@ RUN add-apt-repository 'deb http://download.jitsi.org/nightly/deb unstable/' && 
 	apt-get clean
 
 EXPOSE 80 443
+
+CMD tail -F /var/log/messages
