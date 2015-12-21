@@ -17,6 +17,7 @@ RUN gem install jekyll jekyll-paginate
 # STATIC_SITE_(Name) = "(Hostname),(Git Repo),(Jekyll?)"
 ENV STATIC_SITE_LT15="labortage.das-labor.org,https://github.com/das-labor/lt15.git,false"
 ENV STATIC_SITE_REPAIRCAFE="repaircafe-bochum.de,https://github.com/das-labor/repaircafe-bochum.de.git,true"
+ENV STATIC_SITE_STATIC="static.das-labor.org,https://github.com/das-labor/static.das-labor.org.git,false"
 
 # REDIRECT_SITE_(Name) = "(From),(To)"
 ENV REDIRECT_SITE_WWW_REPAIRCAFE="www.repaircafe-bochum.de,repaircafe-bochum.de"
