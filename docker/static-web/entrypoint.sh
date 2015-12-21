@@ -4,7 +4,7 @@
 cat << "EOF" > /etc/nginx/conf.d/default.conf
 server {
 	listen 80 default_server;
-	server_name static.das-labor.org;
+	server_name api.das-labor.org;
 
 	location /github {
 		expires 8d;
