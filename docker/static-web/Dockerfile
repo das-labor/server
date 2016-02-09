@@ -25,4 +25,4 @@ ENV REDIRECT_SITE_WWW_REPAIRCAFE="www.repaircafe-bochum.de,repaircafe-bochum.de"
 
 COPY entrypoint.sh /
 COPY github_hook.go /
-CMD /entrypoint.sh
+CMD ["/entrypoint.sh"]
