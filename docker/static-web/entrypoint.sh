@@ -89,4 +89,4 @@ go build -o /github_hook /github_hook.go
 sleep 2
 
 
-nginx -g "daemon off;"
+exec nginx -g "daemon off;"
