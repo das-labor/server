@@ -21,10 +21,11 @@ COPY bootstrap.ldif /etc/ldap/
 
 COPY slapd.conf /etc/ldap/
 
-CMD slapadd -c -n1 -l /etc/ldap/bootstrap.ldif -f /etc/ldap/slapd.conf; \
-		chown -R openldap:openldap /var/lib/ldap /etc/ldap; \
-		slapd \
-			-d acl,config,filter,stats,conns \
-			-u openldap \
-			-g openldap \
-			-f /etc/ldap/slapd.conf
+RUN slapadd -c -n1 -l /etc/ldap/bootstrap.ldif -f /etc/ldap/slapd.conf
+RUN chown -R openldap:openldap /var/lib/ldap /etc/ldap
+
+CMD ["slapd", \
+			"-d", "acl,config,filter,stats,conns", \
+			"-u", "openldap", \
+			"-g", "openldap", \
+			"-f", "/etc/ldap/slapd.conf"]
