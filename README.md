@@ -28,6 +28,8 @@ allocated ports:
 * 0.0.0.0:443: lfe (HTTPS)
 * 0.0.0.0:587: SMTP Message Submission
 * 0.0.0.0:993: Reserved for IMAPS.(deprecated as port 465?)
+* 0.0.0.0:1812: Reserved for RADIUS (for Spacenet WLAN Roaming)
+* 0.0.0.0:1814: Reserved for RADIUS (for Spacenet WLAN Roaming)
 * 0.0.0.0:4190: Sieve
 * 0.0.0.0:10000/udp: meet SRTP (Jitsi)
 * 0.0.0.0:10001/udp: meet SRTP (Jitsi)
