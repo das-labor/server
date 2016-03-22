@@ -6,7 +6,7 @@
     image: sameersbn/bind
     pull: always
     restart_policy: always
-    state: reloaded
+    state: present
     ports:
       - "53:53"
     volumes:
@@ -21,7 +21,7 @@
     image: mysql
     pull: always
     restart_policy: always
-    state: reloaded
+    state: present
     volumes:
       - "/srv/docker/wiki-mysql:/var/lib/mysql"
     env:
@@ -33,7 +33,7 @@
     image: labor/ldap
     pull: always
     restart_policy: always
-    state: reloaded
+    state: present
     volumes:
       - "/srv/docker/ldap:/var/lib/ldap"
     env:
@@ -45,7 +45,7 @@
     image: labor/wiki
     pull: always
     restart_policy: always
-    state: reloaded
+    state: present
     volumes:
       - "/srv/docker/wiki:/var/www/html"
     links:
@@ -58,7 +58,7 @@
     image: mysql
     pull: always
     restart_policy: always
-    state: reloaded
+    state: present
     volumes:
       - "/srv/docker/blog-mysql:/var/lib/mysql"
     env:
@@ -70,7 +70,7 @@
     image: labor/blog
     pull: always
     restart_policy: always
-    state: reloaded
+    state: present
     volumes:
       - "/srv/docker/blog:/var/www/html"
     links:
@@ -83,7 +83,7 @@
     image: labor/static-web
     pull: always
     restart_policy: always
-    state: reloaded
+    state: present
 
 - name: meet
   docker:
@@ -91,7 +91,7 @@
     image: labor/meet
     pull: always
     restart_policy: always
-    state: reloaded
+    state: present
     ports:
       - "10000:10000/udp"
       - "10001:10001/udp"
@@ -111,7 +111,7 @@
     image: labor/xmpp
     pull: always
     restart_policy: always
-    state: reloaded
+    state: present
     volumes:
       - "/srv/docker/xmpp:/var/lib/ejabberd"
     links:
@@ -131,7 +131,7 @@
     image: labor/lfe
     pull: always
     restart_policy: always
-    state: reloaded
+    state: present
     ports:
       - "80:80"
       - "443:443"
