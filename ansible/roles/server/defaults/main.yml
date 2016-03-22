@@ -10,4 +10,5 @@ server_packages:
     - vim
     - curl
     - wget
+    - python-pip
 #    - python-docker  # Unfortunately not yet in Ubuntu 14.04

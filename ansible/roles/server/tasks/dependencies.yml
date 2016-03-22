@@ -5,12 +5,15 @@
   with_items: server_packages
   when: ansible_pkg_mgr == "apt"
 
-- name: download python-docker
-  get_url: >
-    url=http://ftp.de.debian.org/debian/pool/main/p/python-docker/python-docker_1.5.0-1_all.deb
-    dest=/root/
-  when: ansible_pkg_mgr == "apt"
+- name: install docker-py
+  pip: name=docker-py
 
-- name: install python-docker
-  apt: deb=/root/python-docker_1.5.0-1_all.deb
-  when: ansible_pkg_mgr == "apt"
+#- name: download python-docker
+#  get_url: >
+#    url=http://ftp.de.debian.org/debian/pool/main/p/python-docker/python-docker_1.5.0-1_all.deb
+#    dest=/root/
+#  when: ansible_pkg_mgr == "apt"
+#
+#- name: install python-docker
+#  apt: deb=/root/python-docker_1.5.0-1_all.deb
+#  when: ansible_pkg_mgr == "apt"
