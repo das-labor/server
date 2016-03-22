@@ -12,6 +12,12 @@
     append=yes
   with_items: "{{ SERVER_ADMINS }}"
 
+- name: add vagrant user to admin groups
+  user: >
+    name=vagrant
+    groups=sudo,docker
+    append=yes
+  #when: ansible_user_id == "vagrant"
 
 # TODO: hostkey needs to be fixed
 #- name: add svn server to gobal known_hosts
