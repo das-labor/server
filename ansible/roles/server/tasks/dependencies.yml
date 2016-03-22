@@ -1,7 +1,7 @@
 ---
 
 - name: install server-related packages (apt)
-  apt: pkg={{ item }} state=installed
+  apt: pkg={{ item }} state=installed update_cache=yes
   with_items: "{{ server_packages }}"
   when: ansible_pkg_mgr == "apt"
 
