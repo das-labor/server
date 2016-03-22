@@ -1,13 +1,15 @@
 ---
 
 - name: add docker repository key
-  become: yes
-  apt_key: keyserver=hkp://keyserver.ubuntu.com:80 id=36A1D7869245C8950F966E92D8576A8BA88D21E9
+  apt_key: >
+    keyserver=hkp://keyserver.ubuntu.com:80
+    id=36A1D7869245C8950F966E92D8576A8BA88D21E9
 
 - name: add docker repository
-  become: yes
   apt_repository: repo='deb https://get.docker.com/ubuntu docker main'
 
-- name: upgrade docker
-  become: yes
-  apt: update_cache=yes name=lxc-docker
+- name: install docker
+  apt: update_cache=yes name=lxc-docker state=present
+
+- name: enable docker
+  service: name=docker state=started
