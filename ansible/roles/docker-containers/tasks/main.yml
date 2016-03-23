@@ -1,31 +1,21 @@
 ---
-- name: bind
-  docker:
-    docker_api_version: 1.19
-    name: bind
-    image: sameersbn/bind
-    pull: always
-    restart_policy: always
-    state: present
-    ports:
-      - "53:53"
-    volumes:
-      - "/srv/docker/bind:/data"
-    env:
-      WEBMIN_ENABLED: "false"
 
-
-- name: wiki mysql
-  docker:
-    name: wiki-mysql
-    image: mysql
-    pull: always
-    restart_policy: always
-    state: present
-    volumes:
-      - "/srv/docker/wiki-mysql:/var/lib/mysql"
-    env:
-      MYSQL_ROOT_PASSWORD: "test"
+# - name: bind
+#   docker:
+#     docker_api_version: 1.19
+#     name: bind
+#     image: sameersbn/bind
+#     pull: always
+#     restart_policy: always
+#     state: present
+#     ports:
+#       - "53:53"
+#     volumes:
+#       - "/srv/docker/bind:/data"
+#     env:
+#       WEBMIN_ENABLED: "false"
+#
+#
 
 - name: ldap
   docker:
@@ -33,111 +23,144 @@
     image: labor/ldap
     pull: always
     restart_policy: always
-    state: present
+    state: started
     volumes:
       - "/srv/docker/ldap:/var/lib/ldap"
     env:
       SLAPD_PASSWORD: "test"
 
+- name: wiki-mysql
+  docker:
+    name: wiki-mysql
+    image: mysql
+    pull: missing
+    restart_policy: always
+    state: started
+    volumes:
+      - "/srv/docker/wiki-mysql:/var/lib/mysql"
+    env:
+      MYSQL_ROOT_PASSWORD: "test"
+
 - name: wiki
   docker:
     name: wiki
     image: labor/wiki
-    pull: always
+    pull: missing
     restart_policy: always
-    state: present
+    state: started
+    expose:
+      - 80
     volumes:
       - "/srv/docker/wiki:/var/www/html"
     links:
       - "wiki-mysql:mysql"
       - "ldap:ldap"
-
-- name: blog mysql
-  docker:
-    name: blog-mysql
-    image: mysql
-    pull: always
-    restart_policy: always
-    state: present
-    volumes:
-      - "/srv/docker/blog-mysql:/var/lib/mysql"
     env:
-      MYSQL_ROOT_PASSWORD: "test2"
+      VIRTUAL_HOST: "subdomain.youdomain.com"
 
-- name: blog
-  docker:
-    name: blog
-    image: labor/blog
-    pull: always
-    restart_policy: always
-    state: present
-    volumes:
-      - "/srv/docker/blog:/var/www/html"
-    links:
-      - "blog-mysql:mysql"
-      - "ldap:ldap"
+# - name: blog mysql
+#   docker:
+#     name: blog-mysql
+#     image: mysql
+#     pull: always
+#     restart_policy: always
+#     state: present
+#     volumes:
+#       - "/srv/docker/blog-mysql:/var/lib/mysql"
+#     env:
+#       MYSQL_ROOT_PASSWORD: "test2"
+#
+# - name: blog
+#   docker:
+#     name: blog
+#     image: labor/blog
+#     pull: always
+#     restart_policy: always
+#     state: present
+#     volumes:
+#       - "/srv/docker/blog:/var/www/html"
+#     links:
+#       - "blog-mysql:mysql"
+#       - "ldap:ldap"
+#
+# - name: static websites
+#   docker:
+#     name: static-web
+#     image: labor/static-web
+#     pull: always
+#     restart_policy: always
+#     state: present
+#
+# - name: meet
+#   docker:
+#     name: meet
+#     image: labor/meet
+#     pull: always
+#     restart_policy: always
+#     state: present
+#     ports:
+#       - "10000:10000/udp"
+#       - "10001:10001/udp"
+#       - "10002:10002/udp"
+#       - "10003:10003/udp"
+#       - "10004:10004/udp"
+#       - "10005:10005/udp"
+#       - "10006:10006/udp"
+#       - "10007:10007/udp"
+#       - "10008:10008/udp"
+#       - "10009:10009/udp"
+#       - "10010:10010/udp"
+#
+# - name: xmpp
+#   docker:
+#     name: xmpp
+#     image: labor/xmpp
+#     pull: always
+#     restart_policy: always
+#     state: present
+#     volumes:
+#       - "/srv/docker/xmpp:/var/lib/ejabberd"
+#     links:
+#       - "ldap:ldap"
+#
+# - name: safe
+#   docker:
+#     image: busybox
+#     name: safe
+#     volumes:
+#       - "/srv/docker/safe:/safe"
+#     command: "/bin/sh"
+#
+# - name: rev proxy
+#   docker:
+#     name: lfe
+#     image: labor/lfe
+#     pull: always
+#     restart_policy: always
+#     state: present
+#     ports:
+#       - "80:80"
+#       - "443:443"
+#     links:
+#       - "blog:blog"
+#       - "wiki:wiki"
+#       - "static-web:static-web"
+#       - "meet:meet"
+#     volumes_from: safe
 
-- name: static websites
-  docker:
-    name: static-web
-    image: labor/static-web
-    pull: always
-    restart_policy: always
-    state: present
 
-- name: meet
+- name: reverseproxy
   docker:
-    name: meet
-    image: labor/meet
-    pull: always
+    name: nginx
+    image: jwilder/nginx-proxy
+    pull: missing
     restart_policy: always
-    state: present
+    state: started
     ports:
-      - "10000:10000/udp"
-      - "10001:10001/udp"
-      - "10002:10002/udp"
-      - "10003:10003/udp"
-      - "10004:10004/udp"
-      - "10005:10005/udp"
-      - "10006:10006/udp"
-      - "10007:10007/udp"
-      - "10008:10008/udp"
-      - "10009:10009/udp"
-      - "10010:10010/udp"
-
-- name: xmpp
-  docker:
-    name: xmpp
-    image: labor/xmpp
-    pull: always
-    restart_policy: always
-    state: present
+      - "80:80/tcp"
     volumes:
-      - "/srv/docker/xmpp:/var/lib/ejabberd"
-    links:
-      - "ldap:ldap"
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    env:
+      DEFAULT_HOST: "subdomain.youdomain.com"
 
-- name: safe
-  docker:
-    image: busybox
-    name: safe
-    volumes:
-      - "/srv/docker/safe:/safe"
-    command: "/bin/sh"
-
-- name: rev proxy
-  docker:
-    name: lfe
-    image: labor/lfe
-    pull: always
-    restart_policy: always
-    state: present
-    ports:
-      - "80:80"
-      - "443:443"
-    links:
-      - "blog:blog"
-      - "wiki:wiki"
-      - "static-web:static-web"
-      - "meet:meet"
-    volumes_from: safe
+#
