@@ -34,5 +34,5 @@ The site will only be cloned once when a instance of this container is started.
 If you have this site hosted on Github and want the contents of the container
 be up to date with the repository you can configure a webhook in the Github
 repository. Under "Settings" -> "Webhooks & Services" add a webook. Set the
-payload URL to http://(bandit IP)/github and set the content type to
+payload URL to http://api.das-labor.org/github and set the content type to
 "application/x-www-form-urlencoded". The site will now be update each `git push`.
