@@ -1,5 +1,11 @@
+---
+
 # The admin users on a labor server
-SERVER_ADMINS: [marcus, seu, blafoo, zaolin]
+SERVER_ADMINS:
+  - marcus
+  - seu
+  - blafoo
+  - zaolin
 
 # user data
 USER:

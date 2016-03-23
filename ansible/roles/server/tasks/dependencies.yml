@@ -1,30 +1,19 @@
 ---
 
 - name: install server-related packages (apt)
-  tags: server_deps
-  become: yes
+  apt: pkg={{ item }} state=installed update_cache=yes
+  with_items: "{{ server_packages }}"
   when: ansible_pkg_mgr == "apt"
-  apt: pkg={{ item }} state=installed
-  with_items:
-    - tmux
-    - htop
-    - dstat
-    - unzip
-    - git
-    - vim
-    - curl
-    - wget
-  # Unfortunately not yet in Ubuntu 14.04
-  # - python-docker
 
-- name: download python-docker
-  tags: server_deps
-  become: yes
-  when: ansible_pkg_mgr == "apt"
-  get_url: dest=/root/ url=http://ftp.de.debian.org/debian/pool/main/p/python-docker/python-docker_1.5.0-1_all.deb
+- name: install docker-py
+  pip: name=docker-py
 
-- name: install python-docker
-  tags: server_deps
-  become: yes
-  when: ansible_pkg_mgr == "apt"
-  apt: deb=/root/python-docker_1.5.0-1_all.deb
+#- name: download python-docker
+#  get_url: >
+#    url=http://ftp.de.debian.org/debian/pool/main/p/python-docker/python-docker_1.5.0-1_all.deb
+#    dest=/root/
+#  when: ansible_pkg_mgr == "apt"
+#
+#- name: install python-docker
+#  apt: deb=/root/python-docker_1.5.0-1_all.deb
+#  when: ansible_pkg_mgr == "apt"

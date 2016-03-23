@@ -1,7 +1,7 @@
 ---
 
 # This normally runs only once.
-- include: dependencies.yml
-- include: docker.yml
-- include: admins.yml
-- include: ssh.yml
+- include: dependencies.yml tags=server_deps
+- include: docker.yml tags=server_docker
+- include: admins.yml tags=server_admins
+- include: ssh.yml tags=server_ssh

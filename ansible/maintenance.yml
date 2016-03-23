@@ -2,4 +2,4 @@
 
 - hosts: bandit
   roles:
-    - ../roles/maintenance
+    - maintenance

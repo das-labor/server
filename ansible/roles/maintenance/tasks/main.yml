@@ -1,18 +1,18 @@
 ---
-- name: instal openssl
-  apt: name=openssl state=installed
+
+- name: install openssl
+  apt: name=openssl state=present
 
 - name: copy openssl config
   copy: src=openssl.cnf dest=/tmp/openssl.cnf
 
 - name: create /srv/docker/safe
   file: dest=/srv/docker/safe state=directory mode=0750 owner=root group=root
-  sudo: yes
 
 - name: create self-signed SSL cert
-  command: openssl req -new -nodes -x509 -subj "/C=XX/ST=XX/L=Bochum/O=LABOR/CN=das-labor.org" -days 1 -keyout /srv/docker/safe/das-labor.key -out /srv/docker/safe/das-labor.crt -extensions v3_ca creates=/srv/docker/safe/das-labor.crt -config /tmp/openssl.cnf
-  sudo: yes
+  command: openssl req -new -nodes -x509 -subj "/C=XX/ST=XX/L=Bochum/O=LABOR/CN=das-labor.org" -days 1 -keyout /srv/docker/safe/das-labor.key -out /srv/docker/safe/das-labor.crt -extensions v3_ca -reqexts SAN -config /tmp/openssl.cnf
+  args:
+    creates: /srv/docker/safe/das-labor.crt
 
 - name: fix permissions for private key
   file: path=/srv/docker/safe/das-labor.key mode=0400
-  sudo: yes
