@@ -131,23 +131,6 @@
 #       - "/srv/docker/safe:/safe"
 #     command: "/bin/sh"
 #
-# - name: rev proxy
-#   docker:
-#     name: lfe
-#     image: labor/lfe
-#     pull: always
-#     restart_policy: always
-#     state: present
-#     ports:
-#       - "80:80"
-#       - "443:443"
-#     links:
-#       - "blog:blog"
-#       - "wiki:wiki"
-#       - "static-web:static-web"
-#       - "meet:meet"
-#     volumes_from: safe
-
 
 - name: reverseproxy
   docker:
