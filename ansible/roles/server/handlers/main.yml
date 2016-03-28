@@ -7,3 +7,7 @@
 - name: restart sshd
   sudo: yes
   service: name=ssh state=restarted
+
+- name: reload iptables
+  sudo: yes
+  service: name=iptables-persistent state=restarted

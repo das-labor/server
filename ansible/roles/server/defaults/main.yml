@@ -11,4 +11,8 @@ server_packages:
     - curl
     - wget
     - python-pip
+    - iptables-persistent
 #    - python-docker  # Unfortunately not yet in Ubuntu 14.04
+
+# To reach the container via ipv6, we allocate a /80 subnet for docker containers.
+server_ip6_docker: 2a01:4f8:160:73e1:1::/80

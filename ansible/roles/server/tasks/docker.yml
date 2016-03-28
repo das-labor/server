@@ -1,5 +1,23 @@
 ---
 
+# The bind container needs ip6 to sixxs/labor server for zone updates.
+# Unfortunately, docker does not do NAT for ip6, so all containers are
+# suddenly exposed to the world.  So, we disallow incoming connections
+# to docker containers.  Leave ip4 alone (docker installs rules dynamically).
+
+- name: Set IPv4 firewall rules
+  file: src=/etc/iptables/rules.v4 state=absent
+
+- name: Set IPv6 firewall rules
+  template: src=rules.v6.j2 dest=/etc/iptables/rules.v6
+  notify: reload iptables
+
+# We need to allow ipv6
+
+- name: Set Docker defaults
+  template: src=docker dest=/etc/default/docker
+  notify: restart docker
+
 - name: add docker repository key
   apt_key: >
     keyserver=hkp://keyserver.ubuntu.com:80
