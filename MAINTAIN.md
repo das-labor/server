@@ -21,3 +21,10 @@ The container should update if its configuration changes or the base
 image is updated.
 
 Note that site.yml includes this.
+
+
+ETC
+---
+
+To update the mediawiki you have to do that via docker 
+`docker exec -ti wiki maintenance/update.php`
