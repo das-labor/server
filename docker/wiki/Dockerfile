@@ -9,7 +9,7 @@ RUN set -x; \
     apt-get update \
     && apt-get install -y --no-install-recommends \
         g++ \
-        libicu52 \
+        libicu \
         libicu-dev \
     && pecl install intl \
     && echo extension=intl.so >> /usr/local/etc/php/conf.d/ext-intl.ini \
