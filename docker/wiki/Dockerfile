@@ -12,6 +12,8 @@ RUN set -x; \
 
 RUN docker-php-ext-install mbstring mysqli opcache intl
 
+RUN pear install mail net_snmp
+
 RUN a2enmod rewrite
 
 COPY apache/mediawiki.conf /etc/apache2/
