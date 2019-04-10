@@ -12,7 +12,7 @@ RUN set -x; \
 
 RUN docker-php-ext-install mbstring mysqli opcache intl
 
-RUN pear install mail net_snmp
+RUN pear install Mail Net_SMTP
 
 RUN a2enmod rewrite
 
