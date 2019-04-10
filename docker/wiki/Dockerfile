@@ -17,6 +17,7 @@ RUN pear install mail net_snmp
 RUN a2enmod rewrite
 
 COPY apache/mediawiki.conf /etc/apache2/
+RUN echo Include /etc/apache2/mediawiki.conf >> /etc/apache2/apache2.conf
 
 VOLUME /var/www/html
 
