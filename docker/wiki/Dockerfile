@@ -3,8 +3,7 @@ FROM php:5.6-apache
 MAINTAINER seu <seu@panopticon.re>
 
 RUN set -x; \
-    apt-get update \
-    && apt-get install -y --no-install-recommends \
+    apt-get update && apt-get install -y --no-install-recommends \
         git \
         imagemagick \
         libicu-dev \
