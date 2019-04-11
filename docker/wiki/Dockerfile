@@ -1,5 +1,5 @@
 # merged from upstream (synctree/mediawiki) for compatibility
-FROM php:7.1-apache
+FROM php:7.2-apache
 MAINTAINER seu <seu@panopticon.re>
 
 RUN set -x; \
