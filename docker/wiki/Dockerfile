@@ -3,11 +3,11 @@ FROM php:7.2-apache
 MAINTAINER seu <seu@panopticon.re>
 
 RUN set -x; \
-    apt-get update && apt-get install -y --no-install-recommends \
+    apt-get update && apt-get install -y \
         git \
         imagemagick \
         libicu-dev \
-    && rm -rf /var/lib/apt/lists/*
+    --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install mbstring mysqli opcache intl
 
