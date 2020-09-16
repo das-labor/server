@@ -1,3 +1,9 @@
+Warning
+=======
+This has never left the "Work in progress" stage, and is not what is deployed on the current server!
+
+It is currently unmaintained.
+
 Labor e.V. Server
 =================
 
